@@ -7,7 +7,9 @@ import qs from 'qs';
 import bodyParser from 'body-parser';
 import multer from 'multer';
 import Database from './db/dbService.js';
-import {getRouter, postRouter, putRouter} from './routes/index.js';
+import { isOk, Ok, Option } from 'rustic';
+import RoleServices from './Services/Roles/RoleServices.js';
+import UserRouter from './routes/Account/User.js';
 
 const __dirname = path.resolve();
 const port = process.env.PORT || 5000;
@@ -59,10 +61,11 @@ app.get('/', (req: Request, res: Response) => {
   res.status(200).send("<h1>Server Online.</h1> </br> <h3>Status code: 200</h3>");
 });
 
+export var ROLES: any[] = [];
+RoleServices.getRoles().then((r) => isOk(r) ? ROLES = r.data : []);
+
 // Routers
-app.use(getRouter);
-app.use(postRouter);
-app.use(putRouter);
+app.use(UserRouter)
 
 app.listen(port, function (): void {
   console.log(`Listening on port ${port}`);

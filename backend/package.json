@@ -6,8 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "bun server.ts",
-    "server": "bun --watch server.ts",
-    "dev": "concurrently \"tsc --watch\" \"nodemon -q dist/index.js\" \"cd .."
+    "dev": "bun --watch server.ts"
   },
   "repository": {
     "type": "git",

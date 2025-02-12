@@ -8,7 +8,7 @@ export interface User {
   firstname: string,
   lastname: string,
   email: string,
-  gender: Gender,
+  gender: string,
   rolename: string | undefined,
   password: string,
 }

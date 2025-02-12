@@ -1,11 +1,12 @@
 import {ParsedQs} from "qs";
-import { GetUsersQuery } from "../db/@types/querys.js";
-import { User, Gender } from "../db/@types/models/users.js";
+import { GetUsersQuery } from "../../db/@types/querys.js";
+import { User, Gender } from "../../db/@types/models/users.js";
 import { Err, Ok, Option, Result } from "rustic";
+import Clean from "../Clean.js";
 
 
-export class QueryParser {
-  static GetUsers(query: ParsedQs): Option<GetUsersQuery> {
+class QueryParser {
+  public GetUsers(query: ParsedQs): Option<GetUsersQuery> {
     let limit = query.limit && Number.isInteger(+query.limit) ? (+query.limit!) : undefined;
     let offset = query.offset && Number.isInteger(+query.offset) ? (+query.offset!) : undefined;
     let email = query.email ? (""+query.email) : undefined;
@@ -14,7 +15,10 @@ export class QueryParser {
     return {limit,offset,email,gender,role};
   }
 
-  static UpdateUsers(query: ParsedQs): Option<String> {
-    return query.toString();
+  public UpdateUsers(query: ParsedQs): Result<ParsedQs, string> {
+    return Ok(query);
   }
 }
+
+
+export default new QueryParser();
